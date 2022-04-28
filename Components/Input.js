@@ -8,6 +8,15 @@ import {
   XIcon,
 } from '@heroicons/react/outline'
 import React, { useRef, useState } from 'react'
+import { db, storage } from '../firebase'
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from '@firebase/firestore'
+import { getDownloadURL, ref, uploadString } from '@firebase/storage'
 
 const Input = () => {
   const [input, setInput] = useState('')
@@ -15,6 +24,37 @@ const Input = () => {
   const [showEmojis, setShowEmojis] = useState(false)
   const addImageToPost = () => {}
   const filePickerRef = useRef()
+
+  const sendPost = async () => {
+    if (loading) return
+    setLoading(true)
+
+    const docRef = await addDoc(collection(db, 'posts'), {
+      // id: session.user.uid,
+      // username: session.user.name,
+      // userImg: session.user.image,
+      // tag: session.user.tag,
+      text: input,
+      timestamp: serverTimestamp(),
+    })
+
+    const imageRef = ref(storage, `posts/${docRef.id}/image`)
+
+    if (selectedFile) {
+      await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
+        const downloadURL = await getDownloadURL(imageRef)
+        await updateDoc(doc(db, 'posts', docRef.id), {
+          image: downloadURL,
+        })
+      })
+    }
+
+    setLoading(false)
+    setInput('')
+    setSelectedFile(null)
+    setShowEmojis(false)
+  }
+
   const addEmoji = (e) => {
     let sym = e.unified.split('-')
     let codesArray = []
