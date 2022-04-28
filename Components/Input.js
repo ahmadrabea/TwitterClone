@@ -22,6 +22,7 @@ const Input = () => {
   const [input, setInput] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
+  const [loading, setLoading] = useState(false)
   const addImageToPost = () => {}
   const filePickerRef = useRef()
 
