@@ -23,7 +23,6 @@ const Input = () => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
   const [loading, setLoading] = useState(false)
-  const addImageToPost = () => {}
   const filePickerRef = useRef()
 
   const sendPost = async () => {
@@ -55,6 +54,16 @@ const Input = () => {
     setSelectedFile(null)
     setShowEmojis(false)
   }
+  const addImageToPost = (e) => {
+    const reader = new FileReader()
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0])
+    }
+
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result)
+    }
+  }
 
   const addEmoji = (e) => {
     let sym = e.unified.split('-')
@@ -66,7 +75,9 @@ const Input = () => {
 
   return (
     <div
-      className={`flex space-x-3 overflow-y-scroll border-b border-gray-700 p-3`}
+      className={`flex space-x-3 overflow-y-scroll border-b border-gray-700 p-3 ${
+        loading && 'opacity-60'
+      }`}
     >
       <img
         className="h-11 w-11 cursor-pointer rounded-full"
@@ -144,8 +155,8 @@ const Input = () => {
           </div>
           <button
             className="rounded-full bg-[#1d9bf0] px-4 py-1.5 font-bold text-white shadow-md hover:bg-[#1a8cd8] disabled:cursor-default disabled:opacity-50 disabled:hover:bg-[#1d9bf0]"
-            disabled={!input.trim() && !selectedFile}
-            //onClick={sendPost}
+            disabled={(!input.trim() && !selectedFile) || loading}
+            onClick={sendPost}
           >
             Tweet
           </button>
