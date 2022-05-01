@@ -18,6 +18,7 @@ import { ArrowLeftIcon } from '@heroicons/react/solid'
 import Head from 'next/head'
 import Comment from '../components/Comment'
 import Login from '../Components/Login'
+import Widgets from '../Components/Widgets'
 
 function PostPage({ trendingResults, followResults, providers }) {
   const { data: session } = useSession()
@@ -83,6 +84,11 @@ function PostPage({ trendingResults, followResults, providers }) {
             </div>
           )}
         </div>
+
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
 
         {isOpen && <Modal />}
       </main>

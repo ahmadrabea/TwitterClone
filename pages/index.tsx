@@ -11,14 +11,16 @@ import { InferGetServerSidePropsType } from 'next'
 import Modal from '../Components/Modal'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtom'
+import Widgets from '../Components/Widgets'
 
 const Home: NextPage = ({
+  trendingResults,
+  followResults,
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   if (!session) return <Login providers={providers} />
-
   return (
     <div className="">
       <Head>
@@ -30,7 +32,10 @@ const Home: NextPage = ({
         <SideBar />
 
         <Feed />
-        {/* Widget */}
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
         {isOpen && <Modal />}
       </main>
     </div>
@@ -38,10 +43,18 @@ const Home: NextPage = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
+    (res) => res.json()
+  )
+  const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
+    (res) => res.json()
+  )
   const providers = await getProviders()
   const session = await getSession(context)
   return {
     props: {
+      trendingResults,
+      followResults,
       providers,
       session,
     },
