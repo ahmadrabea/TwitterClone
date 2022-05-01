@@ -10,13 +10,13 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtom'
-import Modal from '../components/Modal'
-import Sidebar from '../components/Sidebar'
-import Post from '../components/Post'
+import Modal from '../Components/Modal'
+import SideBar from '../Components/SideBar'
+import Post from '../Components/Post'
 import { db } from '../firebase'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import Head from 'next/head'
-import Comment from '../components/Comment'
+import Comment from '../Components/Comment'
 import Login from '../Components/Login'
 import Widgets from '../Components/Widgets'
 
@@ -59,7 +59,7 @@ function PostPage({ trendingResults, followResults, providers }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="mx-auto flex min-h-screen max-w-[1500px] bg-black">
-        <Sidebar />
+        <SideBar />
         <div className="max-w-2xl flex-grow border-l border-r border-gray-700 sm:ml-[73px] xl:ml-[370px]">
           <div className="sticky top-0 z-50 flex items-center gap-x-4 border-b border-gray-700 bg-black px-1.5 py-2 text-xl font-semibold text-[#d9d9d9]">
             <div
