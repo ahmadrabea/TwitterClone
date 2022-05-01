@@ -77,7 +77,7 @@ const Input = () => {
 
   return (
     <div
-      className={`flex space-x-3 overflow-y-scroll border-b border-gray-700 p-3 ${
+      className={`flex space-x-3 overflow-y-scroll border-b border-gray-700 p-3 scrollbar-hide ${
         loading && 'opacity-60'
       }`}
     >
