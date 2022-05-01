@@ -24,14 +24,23 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
 import { db } from '../firebase'
+import { useRecoilState } from 'recoil'
+import { useRouter } from 'next/router'
+import { modalState, postIdState } from '../atoms/modalAtom'
 
 function Post({ id, post, postPage }) {
   const { data: session } = useSession()
   const [comments, setComments] = useState([])
   const [likes, setLikes] = useState([])
   const [liked, setLiked] = useState(false)
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [postId, setPostId] = useRecoilState(postIdState)
+  const router = useRouter()
   return (
-    <div className="flex cursor-pointer border-b border-gray-700 p-3">
+    <div
+      className="flex cursor-pointer border-b border-gray-700 p-3"
+      onClick={() => router.push(`/${id}`)}
+    >
       {!postPage && (
         <img
           src={post?.userImg}
@@ -90,7 +99,14 @@ function Post({ id, post, postPage }) {
             postPage && 'mx-auto'
           }`}
         >
-          <div className="group flex items-center space-x-1">
+          <div
+            className="group flex items-center space-x-1"
+            onClick={(e) => {
+              e.stopPropagation()
+              setPostId(id)
+              setIsOpen(true)
+            }}
+          >
             <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
               <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
             </div>
@@ -102,7 +118,14 @@ function Post({ id, post, postPage }) {
           </div>
 
           {session.user.uid === post?.id ? (
-            <div className="group flex items-center space-x-1">
+            <div
+              className="group flex items-center space-x-1"
+              onClick={(e) => {
+                e.stopPropagation()
+                deleteDoc(doc(db, 'posts', id))
+                router.push('/')
+              }}
+            >
               <div className="icon group-hover:bg-red-600/10">
                 <TrashIcon className="h-5 group-hover:text-red-600" />
               </div>
@@ -115,7 +138,13 @@ function Post({ id, post, postPage }) {
             </div>
           )}
 
-          <div className="group flex items-center space-x-1">
+          <div
+            className="group flex items-center space-x-1"
+            onClick={(e) => {
+              e.stopPropagation()
+              //likePost()
+            }}
+          >
             <div className="icon group-hover:bg-pink-600/10">
               {liked ? (
                 <HeartIconFilled className="h-5 text-pink-600" />
