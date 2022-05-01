@@ -36,6 +36,44 @@ function Post({ id, post, postPage }) {
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [postId, setPostId] = useRecoilState(postIdState)
   const router = useRouter()
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, 'posts', id, 'comments'),
+          orderBy('timestamp', 'desc')
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, id]
+  )
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  )
+
+  useEffect(
+    () =>
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  )
+
+  const likePost = async () => {
+    if (liked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid))
+    } else {
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+        username: session.user.name,
+      })
+    }
+  }
   return (
     <div
       className="flex cursor-pointer border-b border-gray-700 p-3"
@@ -142,7 +180,7 @@ function Post({ id, post, postPage }) {
             className="group flex items-center space-x-1"
             onClick={(e) => {
               e.stopPropagation()
-              //likePost()
+              likePost()
             }}
           >
             <div className="icon group-hover:bg-pink-600/10">

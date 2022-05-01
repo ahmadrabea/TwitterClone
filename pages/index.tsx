@@ -8,11 +8,15 @@ import { getProviders, getSession, useSession } from 'next-auth/react'
 import React, { ReactChild, ReactNode } from 'react'
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
+import Modal from '../Components/Modal'
+import { useRecoilState } from 'recoil'
+import { modalState } from '../atoms/modalAtom'
 
 const Home: NextPage = ({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession()
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
   if (!session) return <Login providers={providers} />
 
   return (
@@ -27,8 +31,7 @@ const Home: NextPage = ({
 
         <Feed />
         {/* Widget */}
-
-        {/* Modal */}
+        {isOpen && <Modal />}
       </main>
     </div>
   )
