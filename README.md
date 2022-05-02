@@ -1,23 +1,30 @@
-# Next.js + Tailwind CSS Example
+# Twitter Clone
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## Technologis used : Reactjs , next.js , Recoil , tailwind CSS , Firebase and NextAuth
 
-## Deploy your own
+## Deplyment URL : https://twitter-clone-bywwsm5c8-ahmadrabea.vercel.app
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+> #### Project Features
+>
+> - Full responsive design 🖥️📱
+> - Share Tweets with other including images 🖼️
+> - Like & Comment on tweets ♥️
+> - Dynamic Page for every Tweet ✨
+> - Sign in with your Google Account 🔑
+> - Server Side Rendering for better Performance and SEO 🌐
+>
+>   **My Best** Build So Far
+>   <br>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Home page
 
-## How to use
+<img align="center" alt="1" width="1920px" src="https://github.com/ahmadrabea/Store/blob/main/feed.png?raw=true" />
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## Tweet Page [Dynamic]
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
-```
+<img align="center" alt="2" width="1920px" src="https://github.com/ahmadrabea/Store/blob/main/comment1.png?raw=true" />
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Full Responsive
+
+<img align="center" alt="2" width="450px" src="https://github.com/ahmadrabea/Store/blob/main/responsive%20md.png?raw=true" />
+<img align="center" alt="2" width="350px" src="https://github.com/ahmadrabea/Store/blob/main/responsive%20sm.png?raw=true" />
