@@ -13,7 +13,6 @@
 > - Sign in with your Google Account 🔑
 > - Server Side Rendering for better Performance and SEO 🌐
 >
->   **My Best** Build So Far
 >   <br>
 
 ## Home page
